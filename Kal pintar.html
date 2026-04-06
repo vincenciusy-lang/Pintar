@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator Pintar</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #1e1e2f;
+      color: white;
+      text-align: center;
+    }
+
+    .kalkulator {
+      width: 300px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #2c2c3e;
+      border-radius: 10px;
+      box-shadow: 0 0 10px black;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: right;
+      padding: 5px;
+    }
+
+    button {
+      width: 23%;
+      height: 50px;
+      font-size: 18px;
+      margin: 1%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .operator { background: orange; }
+    .equal { background: green; }
+    .clear { background: red; }
+
+    .history {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 150px;
+      overflow-y: auto;
+      background: #1a1a2a;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .history p {
+      margin: 5px 0;
+      font-size: 14px;
+      border-bottom: 1px solid gray;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="kalkulator">
+    <h2>Kalkulator</h2>
+    <input type="text" id="layar" readonly>
+
+    <div>
+      <button onclick="tambah('7')">7</button>
+      <button onclick="tambah('8')">8</button>
+      <button onclick="tambah('9')">9</button>
+      <button class="operator" onclick="tambah('/')">÷</button>
+    </div>
+
+    <div>
+      <button onclick="tambah('4')">4</button>
+      <button onclick="tambah('5')">5</button>
+      <button onclick="tambah('6')">6</button>
+      <button class="operator" onclick="tambah('*')">×</button>
+    </div>
+
+    <div>
+      <button onclick="tambah('1')">1</button>
+      <button onclick="tambah('2')">2</button>
+      <button onclick="tambah('3')">3</button>
+      <button class="operator" onclick="tambah('-')">-</button>
+    </div>
+
+    <div>
+      <button onclick="tambah('0')">0</button>
+      <button onclick="tambah('.')">.</button>
+      <button class="equal" onclick="hitung()">=</button>
+      <button class="operator" onclick="tambah('+')">+</button>
+    </div>
+
+    <div>
+      <button class="clear" onclick="hapus()">C</button>
+    </div>
+
+    <div class="history" id="history">
+      <h3>Riwayat:</h3>
+    </div>
+  </div>
+
+  <script>
+    let layar = document.getElementById("layar");
+    let historyDiv = document.getElementById("history");
+
+    function tambah(angka) {
+      layar.value += angka;
+    }
+
+    function hapus() {
+      layar.value = "";
+    }
+
+    function hitung() {
+      try {
+        let ekspresi = layar.value;
+        let hasil = eval(ekspresi);
+
+        // Tambah ke riwayat
+        let p = document.createElement("p");
+        p.textContent = ekspresi + " = " + hasil;
+        historyDiv.appendChild(p);
+
+        layar.value = hasil;
+      } catch {
+        layar.value = "Error";
+      }
+    }
+  </script>
+
+</body>
+</html>
